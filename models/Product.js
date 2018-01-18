@@ -4,6 +4,9 @@ const product_schema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        index: {
+            unique: true
+        }
     },
     categories: {
         type: String,
@@ -29,14 +32,10 @@ const product_schema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    Interfaces: {
-        type: String,
-        required: true
-    },
     guarantee: {
         type: Number
     },
-    mail: {
+    email: {
         type: String,
         required: true
     },

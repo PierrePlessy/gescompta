@@ -34,7 +34,7 @@ router.use(bodyParser.urlencoded({
 }));
 
 router.post("/", function(req, res) {
-  User.findOne({login: req.body.login}, function(err, user) {
+  User.findOne({email: req.body.email}, function(err, user) {
     if (!user) {
         console.log(user);
         return res.json({success: false,message:"Utilisateur non trouvé"});

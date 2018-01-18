@@ -2,7 +2,7 @@ const router = require('express').Router();
 const Product = require('../../models/Product');
 
 router.get('/all', (req, res) => {
-    Porduct.find({
+    Product.find({
             deleted: false
         })
         .then((products) => {
@@ -11,18 +11,24 @@ router.get('/all', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    Porduct.find({
+    Product.find({
             id: req.params.id,
             deleted: false
         })
-        .then((products) => {
-            res.json(products);
+        .then((product) => {
+            if (product)
+                res.json(product)
+            else
+                res.json({
+                    success: false,
+                    message: 'Can\'t find product !'
+                })
         });
 });
 
 router.post('/create', (req, res) => {
 
-    const new_porduct = new Product({
+    const new_product = new Product({
         name: req.body.name,
         categories: req.body.categories,
         brand: req.body.brand,
@@ -36,7 +42,7 @@ router.post('/create', (req, res) => {
         address: req.body.address
     });
 
-    new_porduct.save()
+    new_product.save()
         .then(() => {
             res.json({
                 success: true,
@@ -52,52 +58,25 @@ router.post('/create', (req, res) => {
 
 });
 
-router.post('/update', passport.authenticate('jwt', {
-    session: false
-}), (req, res) => {
-    var firstname = req.body.firstname;
-    var lastname = req.body.lastname;
-    var password = hash.hashPassword(req.body.password);
-
-    if (!firstname) {
-        firstname = req.user.firstname;
-    }
-    if (!lastname) {
-        lastname = req.user.lastname;
-    }
-    if (!password) {
-        password = hash.hashPassword(req.user.password)
-    }
-
-    User.find({
-        email: req.user.email,
+router.post('/update', (req, res) => {
+    Product.find({
+        name: req.body.name,
         deleted: false
-    }).update({
-        $set: {
-            firstname: firstname,
-            lastname: lastname,
-            password: password
-        }
-    }, function(err) {
-        if (err) {
-            res.json({
-                success: false,
-                message: 'Error'
-            });
-        } else {
-            res.json({
-                success: true,
-                message: 'Account update !'
-            });
-        }
-    });
+    })
+    .update({}, req.body, {
+        runValidators: true
+    })
+    .catch((err) => {
+        res.json({
+            success: false,
+            message: 'Can\'t update product !'
+        })
+    })
 });
 
-router.delete('/delete', passport.authenticate('jwt', {
-    session: false
-}), (req, res) => {
-    User.find({
-            email: req.body.email
+router.delete('/delete', (req, res) => {
+    Product.find({
+            name: req.body.name
         })
         .update({
             $set: {
@@ -112,7 +91,7 @@ router.delete('/delete', passport.authenticate('jwt', {
             } else {
                 res.json({
                     success: true,
-                    message: 'Account softdelete !'
+                    message: 'Product deleted !'
                 });
             }
         })

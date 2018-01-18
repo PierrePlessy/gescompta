@@ -12,9 +12,9 @@ router.get('/all', (req, res) => {
         });
 });
 
-router.get('/', passport.authenticate('jwt', {
+router.get('/',/** passport.authenticate('jwt', {
     session: false
-}), (req, res) => {
+}),**/ (req, res) => {
     res.json(req.user);
 });
 
@@ -45,9 +45,9 @@ router.post('/register', (req, res) => {
 
 });
 
-router.post('/update', passport.authenticate('jwt', {
+router.post('/update', /**passport.authenticate('jwt', {
     session: false
-}), (req, res) => {
+}),**/ (req, res) => {
     var firstname = req.body.firstname;
     var lastname = req.body.lastname;
     var password = hash.hashPassword(req.body.password);
@@ -86,9 +86,9 @@ router.post('/update', passport.authenticate('jwt', {
     });
 });
 
-router.delete('/delete', passport.authenticate('jwt', {
+router.delete('/delete',/** passport.authenticate('jwt', {
     session: false
-}), (req, res) => {
+}),**/ (req, res) => {
     User.find({
             email: req.body.email
         })
