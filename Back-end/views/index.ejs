@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Gescompta</title>
+    <link rel="stylesheet" type="text/css" href="style.min.css">
+</head>
+
+<body>
+    <form id="form_login">
+        <div>
+            <label for="email">Email : </label>
+            <input type="text" name="email" id="email" />
+        </div>
+        <div>
+            <label for="password">Password : </label>
+            <input type="text" name="password" id="pseudo" />
+        </div>
+
+        <input type="submit" value="Enregister">
+    </form>
+    <a href="/register">Enregister un nouvel utilisateur</a>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+    </script>
+    <script>
+        $("#form_login").submit(function(e) {
+
+            $.ajax({
+                type: "POST",
+                url: "/api/auth",
+                data: $("#form_login").serialize(),
+                success: function(data) {
+                    console.log(data);
+                    window.location = '/product/all'
+                }
+            });
+            e.preventDefault();
+        });
+    </script>
+</body>
+
+</html>

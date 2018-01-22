@@ -43,6 +43,10 @@ const product_schema = new mongoose.Schema({
         type: String,
         required: true
     },
+    command: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Command'
+    }],
     deleted: {
         type: Boolean,
         default: false,

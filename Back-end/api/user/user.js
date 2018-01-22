@@ -1,20 +1,12 @@
 const router = require('express').Router();
 const hash = require('../../helpers/hash');
 const User = require('../../models/User');
+const Command = require('../../models/Command');
 const passport = require('passport');
 
-router.get('/all', (req, res) => {
-    User.find({
-            deleted: false
-        })
-        .then((users) => {
-            res.json(users);
-        });
-});
-
-router.get('/',/** passport.authenticate('jwt', {
+router.get('/', passport.authenticate('jwt', {
     session: false
-}),**/ (req, res) => {
+}), (req, res) => {
     res.json(req.user);
 });
 
@@ -28,6 +20,14 @@ router.post('/register', (req, res) => {
         password: hash.hashPassword(req.body.password),
         address: req.body.address
     });
+
+    const new_command = new Command({
+        user: newUser._id,
+    })
+
+    newUser.command = new_command._id;
+
+    new_command.save()
 
     newUser.save()
         .then(() => {
@@ -45,9 +45,9 @@ router.post('/register', (req, res) => {
 
 });
 
-router.post('/update', /**passport.authenticate('jwt', {
+router.post('/update', passport.authenticate('jwt', {
     session: false
-}),**/ (req, res) => {
+}), (req, res) => {
     var firstname = req.body.firstname;
     var lastname = req.body.lastname;
     var password = hash.hashPassword(req.body.password);
@@ -62,33 +62,34 @@ router.post('/update', /**passport.authenticate('jwt', {
         password = hash.hashPassword(req.user.password)
     }
 
-    User.find({
-        email: req.user.email,
-        deleted: false
-    }).update({
-        $set: {
-            firstname: firstname,
-            lastname: lastname,
-            password: password
-        }
-    }, function(err) {
-        if (err) {
-            res.json({
-                success: false,
-                message: 'Error'
-            });
-        } else {
-            res.json({
-                success: true,
-                message: 'Account update !'
-            });
-        }
-    });
+    User.findOne({
+            email: req.user.email,
+            deleted: false
+        })
+        .update({
+            $set: {
+                firstname: firstname,
+                lastname: lastname,
+                password: password
+            }
+        }, (err) => {
+            if (err) {
+                res.json({
+                    success: false,
+                    message: 'Error'
+                });
+            } else {
+                res.json({
+                    success: true,
+                    message: 'Account update !'
+                });
+            }
+        });
 });
 
-router.delete('/delete',/** passport.authenticate('jwt', {
+router.delete('/delete', passport.authenticate('jwt', {
     session: false
-}),**/ (req, res) => {
+}), (req, res) => {
     User.find({
             email: req.body.email
         })

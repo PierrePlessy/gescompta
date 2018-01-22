@@ -1,0 +1,12 @@
+<div>Pute </div>
+<form (submit)="loginSubmit()">
+        <div class="form-group">
+          <label>Email:</label>
+          <input type="text" name="email" [(ngModel)]="email">
+        </div>
+        <div class="form-group">
+          <label>Password:</label>
+          <input type="password" name="password"  [(ngModel)]="password">
+        </div>
+        <button type="submit">Connexion</button>
+</form>
