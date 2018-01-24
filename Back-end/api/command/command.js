@@ -68,7 +68,6 @@ router.post('/addProduct/:pid', (req, res) => {
             deleted: false
         })
         .then((command) => {
-            console.log(command);
             command.product.push(req.params.pid)
             return command.update({
                 $set: {
@@ -96,7 +95,6 @@ router.post('/deleteProduct/:pid', (req, res) => {
             deleted: false
         })
         .then((command) => {
-            console.log(command);
             command.product.forEach((id) => {
                 if (id == req.params.pid) {
                     // delete id;
@@ -105,7 +103,6 @@ router.post('/deleteProduct/:pid', (req, res) => {
                 }
             })
 
-            console.log(command.product);
             return command.update({
                 $set: {
                     product: command.product,

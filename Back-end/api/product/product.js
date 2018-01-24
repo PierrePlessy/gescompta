@@ -17,7 +17,6 @@ router.get('/:id', (req, res) => {
         })
         .then((product) => {
             if (product) {
-                console.log("Product : " + product);
                 res.json(product)
             } else
                 res.json({

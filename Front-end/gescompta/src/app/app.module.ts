@@ -12,6 +12,7 @@ import { AllProductComponent } from './all-product/all-product.component';
 import { ProductComponent } from './product/product.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CommandComponent } from './command/command.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { CommandComponent } from './command/command.component';
     AllProductComponent,
     ProductComponent,
     NavbarComponent,
-    CommandComponent
+    CommandComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

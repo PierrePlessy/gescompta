@@ -18,7 +18,6 @@ export class AllProductComponent implements OnInit {
   ngOnInit() {
     this.api.getAllProducts().subscribe(data => {
       this.products = data;
-      console.log(this.products[0]);
     }, err => {
       return false;
     });
@@ -26,9 +25,7 @@ export class AllProductComponent implements OnInit {
 
   addProduct(id) {
     this.api.addProductApi(id).subscribe(data => {
-        console.log(data)
       alert(data.message);
-      // window.location.reload();
     });
   }
 

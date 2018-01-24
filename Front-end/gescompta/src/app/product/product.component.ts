@@ -17,11 +17,8 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.params.id;
-    console.log("Id : " + id)
     this.api.getProduct(id).subscribe(data => {
-        console.log("Data : " + data)
       this.product = data;
-      console.log(this.product);
     }, err => {
       return false;
     });
@@ -29,9 +26,7 @@ export class ProductComponent implements OnInit {
 
   addProduct(id) {
     this.api.addProductApi(id).subscribe(data => {
-        console.log(data)
       alert(data.message);
-      // window.location.reload();
     });
   }
 }

@@ -8,7 +8,7 @@ export class ApiService {
 
   authToken: any;
   user: any;
-  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8' });
   constructor(private http: Http) { }
 
   authenticate(user) {
@@ -21,9 +21,12 @@ export class ApiService {
     this.authToken = token;
   }
 
+  register(body) {
+      return this.http.post('http://localhost:3000/api/user/register', body, { headers: this.headers })
+        .map(res => res.json());
+  }
   getToken() {
     const token = localStorage.getItem('id_token');
-    console.log("Token : " + token)
     this.authToken = token;
   }
 
@@ -37,32 +40,29 @@ export class ApiService {
   getProduct(id) {
     this.getToken()
     this.headers.append('Authorization', "Bearer " + this.authToken);
-    return this.http.get('http://localhost:3000/api/product/'+ id, { headers: this.headers })
+    return this.http.get('http://localhost:3000/api/product/' + id, { headers: this.headers })
       .map(res => res.json());
   }
 
   getCommand() {
-      this.getToken()
-      this.headers.append('Authorization', "Bearer " + this.authToken);
-      return this.http.get('http://localhost:3000/api/command/', { headers: this.headers })
-        .map(res => res.json());
+    this.getToken()
+    this.headers.append('Authorization', "Bearer " + this.authToken);
+    return this.http.get('http://localhost:3000/api/command/', { headers: this.headers })
+      .map(res => res.json());
   }
 
   addProductApi(id) {
-      this.getToken()
-      this.headers.append('Authorization', "Bearer " + this.authToken);
-      return this.http.post('http://localhost:3000/api/command/addProduct/' + id, { headers: this.headers }).map(res => res.json());
+    this.getToken()
+    this.headers.append('Authorization', "Bearer " + this.authToken);
+    return this.http.post('http://localhost:3000/api/command/addProduct/' + id, { headers: this.headers })
+      .map(res => res.json());
   }
 
   deleteProduct(id) {
-      this.getToken()
-
-      this.headers.append('Authorization', "Bearer " + this.authToken);
-      console.log("putain");
-      return this.http.post('http://localhost:3000/api/command/deleteProduct/' + id, { headers: this.headers }).map(res => res.json());
+    this.getToken()
+    this.headers.append('Authorization', "Bearer " + this.authToken);
+    return this.http.post('http://localhost:3000/api/command/deleteProduct/' + id, { headers: this.headers })
+      .map(res => res.json());
   }
 
-  loggedIn() {
-    return tokenNotExpired();
-  }
 }
