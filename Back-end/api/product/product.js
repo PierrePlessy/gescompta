@@ -12,13 +12,14 @@ router.get('/all', (req, res) => {
 
 router.get('/:id', (req, res) => {
     Product.find({
-            id: req.params.id,
+            _id: req.params.id,
             deleted: false
         })
         .then((product) => {
-            if (product)
+            if (product) {
+                console.log("Product : " + product);
                 res.json(product)
-            else
+            } else
                 res.json({
                     success: false,
                     message: 'Can\'t find product !'
@@ -60,18 +61,18 @@ router.post('/create', (req, res) => {
 
 router.post('/update', (req, res) => {
     Product.find({
-        name: req.body.name,
-        deleted: false
-    })
-    .update({}, req.body, {
-        runValidators: true
-    })
-    .catch((err) => {
-        res.json({
-            success: false,
-            message: 'Can\'t update product !'
+            name: req.body.name,
+            deleted: false
         })
-    })
+        .update({}, req.body, {
+            runValidators: true
+        })
+        .catch((err) => {
+            res.json({
+                success: false,
+                message: 'Can\'t update product !'
+            })
+        })
 });
 
 router.delete('/delete', (req, res) => {

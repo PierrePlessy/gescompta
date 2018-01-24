@@ -18,6 +18,7 @@
   "homepage": "https://github.com/PierrePlessy/gescompta#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "crypto": "^1.0.1",
     "dotenv": "^4.0.0",
     "ejs": "^2.5.7",

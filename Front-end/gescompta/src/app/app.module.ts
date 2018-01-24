@@ -9,13 +9,19 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 import { AppRoutingModule } from './/app-routing.module';
 import { ApiService } from './api.service';
 import { AllProductComponent } from './all-product/all-product.component';
+import { ProductComponent } from './product/product.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { CommandComponent } from './command/command.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthenticationComponent,
-    AllProductComponent
+    AllProductComponent,
+    ProductComponent,
+    NavbarComponent,
+    CommandComponent
   ],
   imports: [
     BrowserModule,

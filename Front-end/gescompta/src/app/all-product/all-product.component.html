@@ -1,3 +1,31 @@
-<p>
-  all-product works!
-</p>
+<div class="container">
+  <h3>Tous nos produits :</h3>
+
+  <section *ngIf="products">
+    <div>
+      <ul [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">
+        <li *ngFor="let product of products" class="col-lg-8 mx-auto">
+          <h3>
+            <a routerLinkActive="linkActive" routerLink="/product/{{product._id}}" >
+                {{product.name}}
+            </a>
+          </h3>
+          <div class="row">
+            <div class="col-sm-6">Categorie : {{product.categories}}</div>
+            <div class="col-sm-6">Marque : {{product.brand}}</div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">Prix : {{product.price}} €</div>
+          </div>
+
+          <form #id="ngForm" (ngSubmit)="addProduct(product[0]._id)" novalidate>
+            <button class="btn text-white">
+                Ajouter à la commande
+            </button>
+          </form>
+
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>

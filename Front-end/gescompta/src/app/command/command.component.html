@@ -1,0 +1,35 @@
+<div class="container">
+
+
+  <section *ngIf="command">
+    <h3>Votre commande:</h3>
+    <div>
+      <ul [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">
+        <li *ngFor="let product of command[0].product" class="col-lg-8 mx-auto">
+          <h3>
+            <a routerLinkActive="linkActive" routerLink="/product/{{product._id}}" >
+                {{product.name}}
+            </a>
+            </h3>
+          <div class="row">
+            <div class="col-sm-6">Categorie : {{product.categories}}</div>
+            <div class="col-sm-6">Marque : {{product.brand}}</div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">Prix HT : {{product.price}} €</div>
+            <div class="col-sm-6">Prix TTC : {{product.price * 1.20}} €</div>
+          </div>
+
+          <form #id="ngForm" (ngSubmit)="deleteProduct(product._id)" novalidate>
+            <button class="btn btn-danger text-white">
+                Enlever
+            </button>
+          </form>
+
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-12">Prix total HT : {{command[0].priceHT}} €</div>
+    <div class="col-sm-12">Prix total TTC : {{command[0].priceTTC}} €</div>
+  </section>
+</div>

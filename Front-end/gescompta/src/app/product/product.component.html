@@ -1,0 +1,31 @@
+<div class="container">
+  <section *ngIf="product">
+      <div class="row">
+          <h3>{{product[0].name}}</h3>
+      </div>
+    <div class="row">
+      <div class="col-sm-6">Categorie : {{product[0].categories}}</div>
+      <div class="col-sm-6">Marque : {{product[0].brand}}</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">Prix : {{product[0].price}} €</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">Memroire : {{product[0].memory}} mo</div>
+      <div class="col-sm-12">Hertz : {{product[0].hertz}} fps</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">Os : {{product[0].os}}</div>
+      <div class="col-sm-12">Guarantie : {{product[0].guarantee}} ans</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">Email : {{product[0].email}}</div>
+      <div class="col-sm-12">Adresse : {{product[0].address}}</div>
+    </div>
+    <form #id="ngForm" (ngSubmit)="addProduct(product[0]._id)" novalidate>
+      <button class="btn text-white">
+          Ajouter à la commande
+      </button>
+    </form>
+  </section>
+</div>
